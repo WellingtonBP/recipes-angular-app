@@ -1,0 +1,39 @@
+<div class="row">
+   <div class="col-12">
+      <form (ngSubmit)="onSubmit()" [formGroup]="recipesForm">
+         <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" formControlName="name" class="form-control">
+         </div>
+         <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" formControlName="description" id="description" class="form-control">
+         </div>
+         <div class="form-group">
+            <label for="imgPath">ImagePath:</label>
+            <input type="text" id="imgPath" formControlName="imagePath" class="form-control">
+            <img *ngIf="recipesForm.get('imagePath').valid" [src]="recipesForm.get('imagePath').value" class="img-fluid mt-2">
+         </div>
+         <div formArrayName="ingredients">
+            <button (click)="addIngredient()" type="button" class="btn btn-light">Add ingredient</button>
+            <h4>Ingredients:</h4>
+            <div *ngFor="let ingredient of ingredients; let i = index" class="mt-2" [formGroupName]="i">
+               <div class="row">
+                  <div class="col-7">
+                     <input type="text" class="form-control" placeholder="Name" formControlName="name">
+                  </div>
+                  <div class="col-4">
+                     <input type="number" class="form-control" placeholder="Amount" formControlName="amount">
+                  </div>
+                  <div class="col-1">
+                     <button class="close btn" (click)="deleteIngredient(i)">&times;</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="form-group">
+            <button class="btn btn-primary mt-3" [disabled]="!recipesForm.valid" type="submit">{{btnText}}</button>
+         </div>
+      </form>
+   </div>
+</div>

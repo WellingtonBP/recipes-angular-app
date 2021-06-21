@@ -1,0 +1,21 @@
+<ng-template testDirective ></ng-template>
+<div class="container">
+   <div class="row col-md-8 mx-auto">
+      <form (ngSubmit)="onSubmit(form)" class="col-12" #form="ngForm">
+         <div class="form-group">
+            <label for="email">Email: </label>
+            <input type="text" name="email" id="email" required email ngModel class="form-control">
+         </div>
+         <div class="form-group">
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" class="form-control" ngModel required="required" minlength="6">
+         </div>
+         <div>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">{{ loginMode?'Login':'Sign' }}</button> |
+            <button type="button" class="btn btn-primary" (click)="switchMode()">Switch to {{ loginMode?'Sign':'Login' }}</button>
+         </div>
+      </form>
+      <p *ngIf="isLoading" class="mt-2">Loading...</p>
+      <div class="alert alert-danger mt-2" *ngIf="error">{{ error }}</div>
+   </div>
+</div>
